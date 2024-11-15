@@ -58,7 +58,7 @@ pipeline {
        stage("Trivy Scan") {
            steps {
                script {
-	            sh ('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image mdamirmadm/register-app-pipeline:latest --no-progress --scanners vuln  --exit-code 0 --severity HIGH,CRITICAL --format table')
+	            sh ('docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /root/.cache:/root/.cache -e TRIVY_AUTH_URL="https://ghcr.io" -e TRIVY_USERNAME="mdamirmadm" -e TRIVY_PASSWORD="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" aquasec/trivy:latest image mdamirmadm/register-app-pipeline:latest --no-progress --scanners vuln --severity HIGH,CRITICAL --format table')
                }
            }
        }
